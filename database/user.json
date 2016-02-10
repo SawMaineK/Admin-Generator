@@ -1,0 +1,17 @@
+[
+	{
+        "field":"name:string",
+        "type":"text",
+        "validations": "required"
+    },
+    {
+        "field":"email:string",
+        "type":"email",
+        "validations": "required|unique:users,email"
+    },
+    {
+        "field":"password:string",
+        "type":"password",
+        "validations": "required|min:6"
+    }
+]
