@@ -1,0 +1,12 @@
+[
+	{
+        "field":"name:string",
+        "type":"text",
+        "validations": "required"
+    },
+    {
+        "field":"description:text",
+        "type":"textarea",
+        "validations": ""
+    }
+]

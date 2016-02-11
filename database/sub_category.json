@@ -1,0 +1,17 @@
+[
+	{
+        "field":"name:string",
+        "type":"text",
+        "validations": "required"
+    },
+    {
+        "field":"description:text",
+        "type":"textarea",
+        "validations": ""
+    },
+    {
+        "field":"Category:integer",
+        "type":"select:Category 1, Category 2, Category 3",
+        "validations": "required"
+    }
+]
