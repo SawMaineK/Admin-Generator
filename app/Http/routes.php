@@ -50,16 +50,17 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+    Route::resource('admin/generators', 'GeneratorController');
+
+	Route::get('admin/generators/{id}/delete', [
+	    'as' => 'generators.delete',
+	    'uses' => 'GeneratorController@destroy',
+	]);
+
     Route::group(['prefix' => 'admin','middleware' => 'auth'], function ()
 	{
 		Route::resource('api', 'ApiViewController');
-	    Route::resource('generators', 'GeneratorController');
-
-		Route::get('generators/{id}/delete', [
-		    'as' => 'generators.delete',
-		    'uses' => 'GeneratorController@destroy',
-		]);
-		
+	    
         require Config::get('generator.path_scaffold_routes');
 	});
     
