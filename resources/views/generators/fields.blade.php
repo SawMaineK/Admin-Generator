@@ -234,11 +234,88 @@
 	</div>
 
 </div>
+
+<template id="template-field">
+<div class="row">
+	<!-- Field Name Field -->
+	<div class="col-sm-1 col-lg-1 control-label">Extra Field:</div>
+	<div class="col-sm-3 col-lg-3"> 
+		<div class="form-group{{ $errors->has('field_name') ? ' has-error' : '' }}">
+	    	{!! Form::label('field_name', 'Field Name:',['class' => 'control-label']) !!}
+	        
+			{!! Form::text('field_name[]', null, ['class' => 'form-control']) !!}
+	        @if ($errors->has('field_name'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('field_name') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	</div>
+
+	<!-- Field Type Field -->
+	<div class="col-sm-3 col-lg-3"> 
+		<div class="form-group{{ $errors->has('field_type') ? ' has-error' : '' }}">
+	    {!! Form::label('field_type', 'Field Type:',['class' => 'control-label']) !!}
+	        
+			{!! Form::select('field_type[]', [ 'text' => 'text', 'textarea' => 'textarea', 'email' => 'email', 'date' => 'date', 'password' => 'password', 'checkbox' => 'checkbox', 'radio' => 'radio', 'select' => 'select', 'file' => 'file', 'pointer' => 'pointer' ], null, ['class' => 'form-control field_type']) !!}
+	        @if ($errors->has('field_type'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('field_type') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	    <div class="form-group hide" id="select-value">
+	    	{!! Form::text('value[]', null, ['class' => 'form-control','placeholder'=>'Apple, Orange, Friute',]) !!}
+		</div>
+		<div class="form-group hide" id="pointer-value">
+			<div class="col-sm-6 col-lg-6 no-padding-left">
+				{!! Form::label('pointer', 'Choose Model:',['class' => 'control-label']) !!}
+				{!! Form::select('pointer[]', $objects, null, ['class' => 'form-control pointer']) !!}
+			</div>
+			<div class="col-sm-6 col-lg-6 no-padding-right">
+				{!! Form::label('pointer_column', 'Choose Column:',['class' => 'control-label']) !!}
+				{!! Form::select('pointer_column[]', count($object_fields) > 0 ? $object_fields[0] : [], null, ['class' => 'form-control']) !!}
+			</div>
+		</div>
+	</div>
+
+	<!-- Data Type Field -->
+	<div class="col-sm-3 col-lg-3"> 
+		<div class="form-group{{ $errors->has('data_type') ? ' has-error' : '' }}">
+	    {!! Form::label('data_type', 'Data Type:',['class' => 'control-label']) !!}
+	        
+			{!! Form::select('data_type[]', [ 'string' => 'String', 'text' => 'Text', 'integer' => 'Integer', 'double' => 'Double', 'boolean' => 'Boolean' ], null, ['class' => 'form-control']) !!}
+	        @if ($errors->has('data_type'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('data_type') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	</div>
+
+
+	<!-- Is Required Field -->
+	<div class="col-sm-2 col-lg-2"> 
+		<div class="form-group{{ $errors->has('is_required') ? ' has-error' : '' }}">
+	    {!! Form::label('is_required', 'Is Required:',['class' => 'control-label']) !!}
+	        <div class="checkbox">
+				<label>{!! Form::checkbox('is_required[]', 1, true) !!}<span></span></label>
+			</div>
+	        @if ($errors->has('is_required'))
+	            <span class="help-block">
+	                <strong>{{ $errors->first('is_required') }}</strong>
+	            </span>
+	        @endif
+	    </div>
+	</div>
+</div>
+</template>
+<div id="template-container"></div>
 <!-- Add More Field -->
 <div class="row">
 	<div class="col-sm-3 col-lg-2 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
 		<div class="form-group">
-		    {!! Form::button('Next Field', ['class' => 'btn btn-default-outline']) !!}
+		    {!! Form::button('Next Field', ['class' => 'btn btn-default-outline', 'id' => 'next-field']) !!}
 	    </div>
 	</div>
 	<!-- Has Access Token Field -->

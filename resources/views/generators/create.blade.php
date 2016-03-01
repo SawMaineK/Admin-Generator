@@ -37,31 +37,42 @@
 @section('footer_scripts')
 
     <script type="text/javascript">
-        $('.field_type').on('change', function(){
-            if($(this).val() == 'select' || $(this).val() == 'checkbox' || $(this).val() == 'radio'){
-                $($(this).parent().parent().children()[1]).removeClass('hide');
-            }
-            else{
-                $($(this).parent().parent().children()[1]).addClass('hide');
-            }
-            if($(this).val() == 'pointer')
-                $($(this).parent().parent().children()[2]).removeClass('hide');
-            else{
-                $($(this).parent().parent().children()[2]).addClass('hide');
-            }
-        });
-        $('.pointer').on('change', function(index){
-            var selectedIndex = $(this).find(":selected").index();
-            var objects = {!! json_encode($object_fields) !!};
-            var objectFields = $.map(objects[selectedIndex], function(value, index) {
-                return [value];
+
+        var inits = function(){
+
+            $('.field_type').on('change', function(){
+                if($(this).val() == 'select' || $(this).val() == 'checkbox' || $(this).val() == 'radio'){
+                    $($(this).parent().parent().children()[1]).removeClass('hide');
+                }
+                else{
+                    $($(this).parent().parent().children()[1]).addClass('hide');
+                }
+                if($(this).val() == 'pointer')
+                    $($(this).parent().parent().children()[2]).removeClass('hide');
+                else{
+                    $($(this).parent().parent().children()[2]).addClass('hide');
+                }
+            });
+            $('.pointer').on('change', function(index){
+                var selectedIndex = $(this).find(":selected").index();
+                var objects = {!! json_encode($object_fields) !!};
+                var objectFields = $.map(objects[selectedIndex], function(value, index) {
+                    return [value];
+                });
+
+                $($($(this).parent().parent().children()[1]).children()[1]).html('');
+                for (var i = 0; i < objectFields.length; i++) {
+                    $($($(this).parent().parent().children()[1]).children()[1]).append('<option value="'+objectFields[i]+'">'+objectFields[i]+'</option>');
+                }
+
             });
 
-            $($($(this).parent().parent().children()[1]).children()[1]).html('');
-            for (var i = 0; i < objectFields.length; i++) {
-                $($($(this).parent().parent().children()[1]).children()[1]).append('<option value="'+objectFields[i]+'">'+objectFields[i]+'</option>');
-            }
-
+        }
+        inits();
+        $('#next-field').on('click', function(){
+            var template = $('#template-field').html();
+            $('#template-container').append(template);
+            inits();
         });
     </script>
 
